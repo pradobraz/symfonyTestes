@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Usuarios{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>Create new Usuarios</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                {{ include('usuarios/_form.html.twig') }}
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-secondary"><a href="{{ path('usuarios_index') }}">back to list</a></button>
+            </div>
+        </div>-->
+    </div>
+{% endblock %}

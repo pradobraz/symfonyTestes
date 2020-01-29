@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuarios index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>Usuarios index</h1>
+        </div>
+        <div class="py-2">
+            <div class="row">
+                <div class="col-md-10">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Clone</th>
+                                <th>Nome</th>
+                                <th>Apelido</th>
+                                <th>Password</th>
+                                <th>RePassword</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for usuario in usuarios %}
+                            <tr>
+                                <td>{{ usuario.id }}</td>
+                                <td>{{ usuario.clone }}</td>
+                                <td>{{ usuario.nome }}</td>
+                                <td>{{ usuario.apelido }}</td>
+                                <td>{{ usuario.password }}</td>
+                                <td>{{ usuario.rePassword }}</td>
+                                <td>{{ usuario.email }}</td>
+                                <td>{{ usuario.username }}</td>
+                                <td>
+                                    <a href="{{ path('usuarios_show', {'id': usuario.id}) }}">show</a>
+                                    <a href="{{ path('usuarios_edit', {'id': usuario.id}) }}">edit</a>
+                                    <a href="{{ path('usuarios_clone', {'id': usuario.id}) }}">clone</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="py-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-outline-primary"><a href="{{ path('usuarios_new') }}">Create new</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
