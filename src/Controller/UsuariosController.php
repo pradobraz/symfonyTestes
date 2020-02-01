@@ -80,22 +80,20 @@ class UsuariosController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}/clone", name="usuarios_clone", methods={"GET","POST"})
+     * @Route("/clone/{id}", name="usuarios_clone", methods={"GET","POST"})
      */
     public function clone(Request $request, Usuarios $usuario): Response
     {
-        
         $form = $this->createForm(UsuariosTypeClone::class, $usuario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $usuario = new Usuarios();
-            $form = $this->createForm(UsuariosTypeClone::class, $usuario);
-            $form->handleRequest($request);
 
-            $entityManager = clone $this->getDoctrine()->getManager();
-            $entityManager->persist($usuario);
-            $entityManager->flush($usuario);
+            /*Código para clonar um registo */
+            $usuario = clone $usuario;
+            $form = $this->getDoctrine()->getManager();
+            $form->persist($usuario);
+            $form->flush($usuario);
 
             return $this->redirectToRoute('usuarios_index');
         }
