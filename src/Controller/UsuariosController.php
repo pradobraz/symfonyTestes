@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Usuarios;
-use App\Entity\UsuariosClone;
 use App\Form\UsuariosType;
-use App\Form\UsuariosTypeClone;
 use App\Repository\UsuariosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,7 +59,7 @@ class UsuariosController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="usuarios_edit", methods={"GET","POST"}) ///{id}
+     * @Route("/{id}/edit", name="usuarios_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Usuarios $usuario): Response
     {
@@ -84,23 +82,27 @@ class UsuariosController extends AbstractController
      */
     public function clone(Request $request, Usuarios $usuario): Response
     {
-        $form = $this->createForm(UsuariosTypeClone::class, $usuario);
+        $form = $this->getDoctrine()->getManager();
+        $usuario = clone $usuario;
+        $form = $this->createForm(UsuariosType::class, $usuario);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+       
+        if (!$form->isSubmitted()) {
 
-            /*Código para clonar um registo */
-            $usuario = clone $usuario;
+            //$usuario = clone $usuario;
             $form = $this->getDoctrine()->getManager();
+            $usuario->setClone('Copy');
             $form->persist($usuario);
-            $form->flush($usuario);
+            $form->flush();
 
             return $this->redirectToRoute('usuarios_index');
+
         }
-        return $this->render('usuarios/clone.html.twig', [
+        /*return $this->render('usuarios/clone.html.twig', [
             'usuario' => $usuario,
             'form' => $form->createView(),
-        ]);
+        ]);*/
     }
 
     /**
@@ -117,3 +119,4 @@ class UsuariosController extends AbstractController
         return $this->redirectToRoute('usuarios_index');
     }
 }
+?>

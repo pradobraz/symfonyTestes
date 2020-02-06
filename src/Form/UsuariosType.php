@@ -13,6 +13,7 @@ class UsuariosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            //->add('clone', HiddenType::class, ['data' => 'Copy'])
             ->add('nome')
             ->add('apelido')
             ->add('password')

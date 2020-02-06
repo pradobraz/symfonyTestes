@@ -64,7 +64,7 @@ class Usuarios
     public function setNome(string $nome): self
     {
         $this->nome = $nome;
-
+        $nome = "Copy.$nome";
         return $this;
     }
 
@@ -140,3 +140,4 @@ class Usuarios
         return $this;
     }
 }
+?>
